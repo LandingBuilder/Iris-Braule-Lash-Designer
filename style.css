@@ -1,0 +1,94 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Usa o Flexbox para centralizar todo o conteúdo vertical e horizontalmente */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;    /* Centraliza verticalmente */
+    min-height: 100vh;      /* Ocupa a altura total da tela */
+    background: linear-gradient(180deg, #100a1c, #4a007e); /* Fundo com gradiente */
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+.perfil-container {
+    /* Define uma largura máxima para o conteúdo não esticar demais */
+    width: 100%;
+    max-width: 600px; 
+    text-align: center;
+    color: white;
+}
+
+/* FOTO DE PERFIL */
+.foto-perfil {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%; /* Faz a imagem ser circular */
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 4px solid white; /* Borda branca em volta */
+}
+
+/* TEXTOS */
+.nome-usuario {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.sub-titulo {
+    font-size: 1em;
+    margin: 5px 0 5px 0;
+}
+
+.bio {
+    font-size: 0.9em;
+    opacity: 0.8;
+    margin-bottom: 40px;
+}
+
+/* BOTÕES DE LINKS */
+.links-container {
+    display: flex;
+    flex-direction: column; /* Empilha os links verticalmente */
+    gap: 15px; /* Espaçamento entre os botões */
+}
+
+.link-botao {
+    display: block; /* Ocupa a largura total do container */
+    background-color: rgba(255, 255, 255, 0.2); /* Fundo semi-transparente */
+    color: white;
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.link-botao i {
+    margin-right: 10px; /* Espaçamento entre o ícone e o texto */
+}
+
+/* EFEITO HOVER (passar o mouse) */
+.link-botao:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px); /* Efeito sutil de levantar */
+}
+
+/* Destaque para o CTA principal (ex: WhatsApp) */
+.cta-destaque {
+    background-color: #25d366; /* Cor do WhatsApp */
+    color: white;
+    margin-top: 20px;
+    border: none;
+}
+
+.cta-destaque:hover {
+    background-color: #128c7e;
+}
