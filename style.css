@@ -6,14 +6,41 @@
 }
 
 body {
-    /* Usa o Flexbox para centralizar todo o conteúdo vertical e horizontalmente */
+    /* Usa o Flexbox para centralizar o conteúdo horizontalmente */
     display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    align-items: center;    /* Centraliza verticalmente */
-    min-height: 100vh;      /* Ocupa a altura total da tela */
-    background: linear-gradient(180deg, #100a1c, #4a007e); /* Fundo com gradiente */
-    font-family: sans-serif;
+    justify-content: center; 
+    align-items: flex-start; /* Alinha ao topo (mais natural para link pages) */
+    min-height: 100vh;      
+    
+    /* REMOVIDO: background: linear-gradient(180deg, #100a1c, #4a007e); */
+    
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white; 
     padding: 20px;
+}
+
+/* ESTILO DO FUNDO COM IMAGEM */
+.fundo {
+    /* Garante que o container ocupe toda a tela */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* Coloca o fundo atrás de todo o conteúdo */
+    overflow: hidden;
+}
+
+.fundo img {
+    /* Responsividade Total */
+    width: 100%;
+    height: 100%;
+    
+    /* Preenche o container sem distorcer, garantindo responsividade */
+    object-fit: cover; 
+    
+    /* Efeito de Opacidade/Escurecimento (brightness) e Desfoque (blur) */
+    filter: brightness(0.6) blur(2px); 
 }
 
 .perfil-container {
@@ -42,13 +69,13 @@ body {
 
 .sub-titulo {
     font-size: 1em;
-    margin: 5px 0 5px 0;
+    margin: 0 0 5px 0;
 }
 
 .bio {
     font-size: 0.9em;
     opacity: 0.8;
-    margin-bottom: 40px;
+    margin: 40px 0 40px 0;
 }
 
 /* BOTÕES DE LINKS */
