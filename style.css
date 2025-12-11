@@ -1,121 +1,1034 @@
-/* RESET BÁSICO */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    /* Usa o Flexbox para centralizar o conteúdo horizontalmente */
-    display: flex;
-    justify-content: center; 
-    align-items: flex-start; /* Alinha ao topo (mais natural para link pages) */
-    min-height: 100vh;      
-    
-    /* REMOVIDO: background: linear-gradient(180deg, #100a1c, #4a007e); */
-    
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: white; 
-    padding: 20px;
+button {
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
-/* ESTILO DO FUNDO COM IMAGEM */
-.fundo {
-    /* Garante que o container ocupe toda a tela */
-    position: fixed; 
+:root {
+    
+    --color-dark: #000000; 
+    --color-primary: #ffffff; 
+    --color-secondary: #ffffff; 
+    --color-text: #ffffff;
+    --color-white: #ffffff;
+    --color-accent: #ffffff; 
+    
+    /* Tipografia */
+    --font-heading: 'Poppins', sans-serif;
+    
+    /* Sombras */
+    /* --shadow-deep: 2px 0px 2px 0 rgb(136, 0, 136); */
+}
+
+/* 2. CONFIGURAÇÃO DA TELA (100% VISÍVEL) */
+html {
+    height: 100vh; /* Garante que o elemento raiz tenha 100% da altura da viewport */
+    /* Suporte para unidades de viewport dinâmicas */
+    height: 100dvh;
+    scroll-behavior: smooth;
+}
+
+.background {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -2; /* Coloca o fundo atrás de todo o conteúdo */
-    overflow: hidden;
-}
-
-.fundo img {
-    /* Responsividade Total */
-    width: 100%;
-    height: 100%;
-    
-    /* Preenche o container sem distorcer, garantindo responsividade */
-    object-fit: cover; 
-    
-    /* Efeito de Opacidade/Escurecimento (brightness) e Desfoque (blur) */
-    filter: brightness(0.6) blur(2px); 
-}
-
-.perfil-container {
-    /* Define uma largura máxima para o conteúdo não esticar demais */
-    width: 100%;
-    max-width: 600px; 
-    text-align: center;
-    color: white;
-}
-
-/* FOTO DE PERFIL */
-.foto-perfil {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%; /* Faz a imagem ser circular */
     object-fit: cover;
-    margin-bottom: 20px;
-    border: 4px solid white; /* Borda branca em volta */
+    object-position: center;
+    z-index: -1; /* Coloca a imagem de fundo atrás do conteúdo */
+    opacity: 0.6;
+    will-change: transform;
+    content-visibility: auto;
 }
 
-/* TEXTOS */
-.nome-usuario {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-}
-
-.sub-titulo {
-    font-size: 1em;
-    margin: 0 0 5px 0;
-}
-
-.bio {
-    font-size: 0.9em;
-    opacity: 0.8;
-    margin: 40px 0 40px 0;
-}
-
-/* BOTÕES DE LINKS */
-.links-container {
+body {
+    min-height: 100vh; 
+    /* Suporte para unidades de viewport dinâmicas */
+    min-height: 100dvh;
+    width: 100%;
+    overflow-y: auto; 
+    overflow-x: hidden;
+    
     display: flex;
-    flex-direction: column; /* Empilha os links verticalmente */
-    gap: 15px; /* Espaçamento entre os botões */
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    
+    padding: 60px 20px; 
+    
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    line-height: 1.6;
+    background: var(--color-dark);
+    
+    /* Melhora a renderização de texto */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
-.link-botao {
-    display: block; /* Ocupa a largura total do container */
-    background-color: rgba(255, 255, 255, 0.2); /* Fundo semi-transparente */
-    color: white;
-    text-decoration: none;
-    padding: 15px 20px;
-    border-radius: 10px;
-    font-size: 1.1em;
-    font-weight: bold;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    transition: background-color 0.3s, transform 0.1s;
+/* 3. CARD PRINCIPAL (PROFILE-CARD) */
+.profile-card {
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    padding: 40px 30px;
+    background: rgba(61, 61, 61, 0.151);
+    border-radius: 25px;
+    border: var(--color-primary);
+    border: solid 1px;
+    border-top: 1px;
+    border-bottom: 1px;
+    /* border: 2px solid var(--color-primary); */
+    /* box-shadow: var(--shadow-deep), inset 0 0 20px rgba(220, 20, 60, 0.15); */
+    position: relative;
+    z-index: 1;
+    margin-top: auto; 
+    margin-bottom: auto; /* Para centralização em media queries menores */
+    
+    /* Melhora a performance de animações */
+    will-change: transform;
+    backface-visibility: hidden;
+    
+    /* Garante que o card seja responsivo em containers flexíveis */
+    flex-shrink: 0;
+    
+    /* Suporte para container queries (futuro) */
+    container-type: inline-size;
 }
 
-.link-botao i {
-    margin-right: 10px; /* Espaçamento entre o ícone e o texto */
-}
-
-/* EFEITO HOVER (passar o mouse) */
-.link-botao:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px); /* Efeito sutil de levantar */
-}
-
-/* Destaque para o CTA principal (ex: WhatsApp) */
-.cta-destaque {
-    background-color: #25d366; /* Cor do WhatsApp */
-    color: white;
-    margin-top: 20px;
+/* 4. HEADER E IMAGEM */
+.profile-image {
+    width: 140px; 
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 25px;
     border: none;
+    
+    /* Sombra uniforme e glow contínuo */
+    box-shadow: 
+        0 0 0 3px var(--color-secondary),
+        0 0 0 6px var(--color-primary),
+        0 0 20px var(--color-primary),
+        0 10px 30px rgb(255, 255, 255);
+        
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: logo-glow 3s ease-in-out infinite;
 }
 
-.cta-destaque:hover {
-    background-color: #128c7e;
+/* Efeito de Expansão de Luz no Logo - Hover */
+.profile-image:hover {
+    transform: scale(1.1); 
+    animation: none;
+    box-shadow: 
+        0 0 0 5px var(--color-secondary),
+        0 0 0 10px var(--color-primary),
+        0 0 30px 15px var(--color-primary),
+        0 0 40px 20px rgb(255, 255, 255),
+        0 15px 40px rgb(255, 255, 255);
+}.brand-name {
+    font-size: 2.2em;
+    font-weight: 800;
+    margin-bottom: 5px;
+    color: var(--color-white);
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.589); /* Sombra sutil */
+}
+
+.tagline {
+    font-size: 1em;
+    font-weight: 300;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.service-highlight {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 35px;
+    padding: 15px 15px;
+    background: rgba(255, 255, 255, 0.205);
+    border-radius: 50px;
+    border: 1px solid var(--color-primary);
+    color: var(--color-text);
+}
+
+.highlight-text {
+    color: var(--color-secondary);
+    text-shadow: 0 0 8px var(--color-secondary), 0 0 15px rgb(255, 255, 255); 
+}
+
+/* 5.1 LINK BUTTONS */
+.links-section {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* INSTAGRAM MENU - ACCORDION STYLE */
+.insta-menu {
+    width: 100%;
+}
+
+.insta-header {
+    width: 100%;
+}
+
+.insta-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary); 
+    color: var(--color-white);
+    padding: 18px 20px;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 600;
+    border: none;
+    box-shadow: var(--color-primary);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    width: 100%;
+    text-decoration: none;
+    position: relative;
+}
+
+.insta-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.insta-label i {
+    margin-right: 15px;
+    font-size: 1.2em;
+}
+
+.insta-toggle i:last-child {
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+    position: absolute;
+    right: 20px;
+}
+
+.insta-toggle:active {
+    transform: translateY(0px) scale(0.98); 
+    box-shadow: var(--color-primary);
+    opacity: 0.9;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .insta-toggle:hover {
+        background-color: var(--color-primary);
+        transform: translateY(-4px); 
+        box-shadow: var(--color-primary);
+    }
+}
+
+.insta-items {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 0;
+    margin-top: 0;
+}
+
+.insta-items.show {
+    max-height: 500px;
+    padding-top: 18px;
+}
+
+.insta-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary); 
+    color: var(--color-white);
+    text-decoration: none;
+    padding: 18px 20px;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 600;
+    border: none;
+    box-shadow: var(--color-white);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.insta-item i {
+    margin-right: 15px;
+    font-size: 1.2em;
+}
+
+.insta-item:active {
+    transform: translateY(0px) scale(0.98); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    opacity: 0.9;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .insta-item:hover {
+        background-color: #ffffff;
+        transform: translateY(-4px); 
+        box-shadow: 0 8px 20px rgb(255, 255, 255);
+    }
+}
+
+.link-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary); 
+    color: black;
+    text-decoration: none;
+    padding: 18px 20px;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 600;
+    border: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    font-family: var(--font-heading);
+    line-height: 1.6;
+}
+
+.link-button:is(a, button) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.link-button i {
+    margin-right: 15px;
+    font-size: 1.2em;
+}
+
+/* Efeito de Clique (Active State) - Profissionalismo */
+.link-button:active {
+    transform: translateY(0px) scale(0.98); 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    opacity: 0.9;
+    transition: none; 
+}
+
+/* Efeito Hover Aprimorado (apenas para telas não-touch) */
+@media (hover: hover) and (pointer: fine) {
+    .link-button:hover {
+        background-color: rgb(255, 255, 255);
+        transform: translateY(-4px); 
+        box-shadow: 0 8px 20px rgb(255, 255, 255);
+    }
+}
+
+
+/* 6. CTA PRINCIPAL (DESTAQUE NEON) */
+.cta-primary {
+    background: green;
+    color: rgb(255, 255, 255);
+    font-size: 1.1em;
+    padding: 18px 20px;
+    /* border: 2px solid var(--color-white); */
+    animation: cta-pulse 2s infinite ease-out;
+}
+
+.cta-primary:hover {
+    background: green;
+    transform: scale(1.05); 
+    color: var(--color-primary);
+    box-shadow: 0 0 20px var(--color-primary);
+    animation: none;
+}
+
+/* Botão de Destaque Secundário (ex: Depoimentos) */
+.link-secondary {
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    opacity: 0.8;
+}
+
+.link-secondary:hover {
+    background: var(--color-primary);
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+/* 7. ANIMAÇÕES */
+@keyframes logo-glow {
+    0%, 100% {
+        box-shadow: 
+            0 0 0 3px var(--color-secondary),
+            0 0 0 6px var(--color-primary),
+            0 0 15px var(--color-primary),
+            0 10px 25px rgb(255, 255, 255);
+    }
+    50% {
+        box-shadow: 
+            0 0 0 3px var(--color-secondary),
+            0 0 0 6px var(--color-primary),
+            0 0 30px 5px var(--color-primary),
+            0 0 40px 10px rgb(255, 255, 255),
+            0 15px 35px rgb(255, 255, 255);
+    }
+}
+
+@keyframes cta-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgb(0, 255, 42);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    }
+}
+/* 8. RODAPÉ */
+.site-footer {
+    margin-top: 40px;
+    font-size: 0.75em;
+    opacity: 0.7;
+    font-weight: 300;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.842);
+}
+
+.site-footer a.lp {
+    text-decoration: none;
+    color: var(--color-white);
+    font-size: 1em;
+    font-weight: bolder;
+}
+
+/* 9. RESPONSIVIDADE COMPLETA - MOBILE FIRST */
+
+/* CELULARES PEQUENOS (até 320px) */
+@media (max-width: 320px) {
+    body {
+        padding: 20px 10px;
+        font-size: 14px;
+    }
+    
+    .profile-card {
+        max-width: 100%;
+        padding: 25px 15px;
+        border-radius: 20px;
+    }
+    
+    .profile-image {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+    }
+    
+    .brand-name {
+        font-size: 1.6em;
+        margin-bottom: 8px;
+    }
+    
+    .service-highlight {
+        font-size: 0.9em;
+        padding: 10px 12px;
+        margin-bottom: 20px;
+        border-radius: 25px;
+    }
+    
+    .link-button {
+        padding: 12px 15px;
+        font-size: 0.9em;
+        border-radius: 25px;
+    }
+    
+    .links-section {
+        gap: 12px;
+    }
+}
+
+/* CELULARES MÉDIOS (321px - 375px) */
+@media (min-width: 321px) and (max-width: 375px) {
+    body {
+        padding: 30px 15px;
+    }
+    
+    .profile-card {
+        padding: 30px 20px;
+    }
+    
+    .profile-image {
+        width: 110px;
+        height: 110px;
+        margin-bottom: 18px;
+    }
+    
+    .brand-name {
+        font-size: 1.7em;
+    }
+    
+    .service-highlight {
+        font-size: 0.95em;
+        padding: 12px 15px;
+        margin-bottom: 22px;
+    }
+    
+    .link-button {
+        padding: 14px 16px;
+        font-size: 0.92em;
+    }
+    
+    .links-section {
+        gap: 14px;
+    }
+}
+
+/* CELULARES GRANDES (376px - 480px) */
+@media (min-width: 376px) and (max-width: 480px) {
+    body {
+        padding: 40px 15px;
+    }
+    
+    .profile-card {
+        padding: 35px 25px;
+    }
+    
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 20px;
+    }
+    
+    .brand-name {
+        font-size: 1.8em;
+    }
+    
+    .service-highlight {
+        font-size: 1em;
+        padding: 12px 15px;
+        margin-bottom: 25px;
+    }
+    
+    .link-button {
+        padding: 15px 18px;
+        font-size: 0.95em;
+    }
+    
+    .cta-primary {
+        padding: 16px 18px;
+        font-size: 1em;
+    }
+    
+    .links-section {
+        gap: 16px;
+    }
+}
+
+/* TABLETS PEQUENOS (481px - 600px) */
+@media (min-width: 481px) and (max-width: 600px) {
+    body {
+        padding: 50px 20px;
+    }
+    
+    .profile-card {
+        max-width: 400px;
+        padding: 40px 30px;
+    }
+    
+    .profile-image {
+        width: 130px;
+        height: 130px;
+        margin-bottom: 22px;
+    }
+    
+    .brand-name {
+        font-size: 2em;
+    }
+    
+    .service-highlight {
+        font-size: 1.05em;
+        padding: 14px 18px;
+        margin-bottom: 28px;
+    }
+    
+    .link-button {
+        padding: 16px 20px;
+        font-size: 0.98em;
+    }
+    
+    .links-section {
+        gap: 18px;
+    }
+}
+
+/* TABLETS MÉDIOS (601px - 768px) */
+@media (min-width: 601px) and (max-width: 768px) {
+    body {
+        padding: 60px 25px;
+    }
+    
+    .profile-card {
+        max-width: 450px;
+        padding: 45px 35px;
+    }
+    
+    .profile-image {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 25px;
+    }
+    
+    .brand-name {
+        font-size: 2.1em;
+    }
+    
+    .service-highlight {
+        font-size: 1.08em;
+        padding: 15px 20px;
+        margin-bottom: 30px;
+    }
+    
+    .link-button {
+        padding: 17px 22px;
+        font-size: 1em;
+    }
+}
+
+/* TABLETS GRANDES (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    body {
+        padding: 70px 30px;
+    }
+    
+    .profile-card {
+        max-width: 480px;
+        padding: 50px 40px;
+    }
+    
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 28px;
+    }
+    
+    .brand-name {
+        font-size: 2.3em;
+    }
+    
+    .service-highlight {
+        font-size: 1.12em;
+        padding: 16px 22px;
+        margin-bottom: 35px;
+    }
+    
+    .link-button {
+        padding: 18px 24px;
+        font-size: 1.02em;
+    }
+}
+
+/* DESKTOP PEQUENO (1025px - 1366px) */
+@media (min-width: 1025px) and (max-width: 1366px) {
+    body {
+        padding: 80px 40px;
+    }
+    
+    .profile-card {
+        max-width: 500px;
+        padding: 55px 45px;
+    }
+    
+    .profile-image {
+        width: 160px;
+        height: 160px;
+        margin-bottom: 30px;
+    }
+    
+    .brand-name {
+        font-size: 2.4em;
+    }
+    
+    .service-highlight {
+        font-size: 1.15em;
+        padding: 18px 24px;
+        margin-bottom: 38px;
+    }
+    
+    .link-button {
+        padding: 19px 26px;
+        font-size: 1.05em;
+    }
+}
+
+/* DESKTOP GRANDE (1367px+) */
+@media (min-width: 1367px) {
+    body {
+        padding: 100px 50px;
+    }
+    
+    .profile-card {
+        max-width: 550px;
+        padding: 60px 50px;
+    }
+    
+    .profile-image {
+        width: 170px;
+        height: 170px;
+        margin-bottom: 35px;
+    }
+    
+    .brand-name {
+        font-size: 2.6em;
+    }
+    
+    .service-highlight {
+        font-size: 1.2em;
+        padding: 20px 26px;
+        margin-bottom: 42px;
+    }
+    
+    .link-button {
+        padding: 20px 28px;
+        font-size: 1.08em;
+    }
+}
+
+/* ORIENTAÇÃO LANDSCAPE PARA CELULARES */
+@media (max-height: 500px) and (orientation: landscape) and (max-width: 896px) {
+    body {
+        padding: 15px 20px;
+        min-height: auto;
+        justify-content: flex-start;
+    }
+    
+    .profile-card {
+        margin: 10px auto;
+        padding: 20px 25px;
+        max-width: 90%;
+    }
+    
+    .profile-image {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+    }
+    
+    .brand-name {
+        font-size: 1.4em;
+        margin-bottom: 5px;
+    }
+    
+    .service-highlight {
+        font-size: 0.85em;
+        padding: 8px 12px;
+        margin-bottom: 15px;
+    }
+    
+    .link-button {
+        padding: 10px 15px;
+        font-size: 0.85em;
+    }
+    
+    .links-section {
+        gap: 10px;
+    }
+    
+    .site-footer {
+        margin-top: 20px;
+        font-size: 0.7em;
+    }
+}
+
+/* ORIENTAÇÃO LANDSCAPE PARA TABLETS */
+@media (min-height: 501px) and (max-height: 800px) and (orientation: landscape) and (min-width: 897px) {
+    body {
+        padding: 30px 40px;
+    }
+    
+    .profile-card {
+        max-width: 450px;
+        padding: 35px 30px;
+    }
+    
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 20px;
+    }
+    
+    .brand-name {
+        font-size: 1.9em;
+    }
+    
+    .service-highlight {
+        font-size: 1em;
+        padding: 12px 16px;
+        margin-bottom: 25px;
+    }
+}
+
+/* OTIMIZAÇÃO PARA TELAS ULTRA-WIDE */
+@media (min-width: 1920px) {
+    .profile-card {
+        max-width: 600px;
+        padding: 70px 60px;
+    }
+    
+    .profile-image {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .brand-name {
+        font-size: 2.8em;
+    }
+    
+    .service-highlight {
+        font-size: 1.25em;
+        padding: 22px 30px;
+    }
+    
+    .link-button {
+        padding: 22px 32px;
+        font-size: 1.12em;
+    }
+}
+
+/* OTIMIZAÇÃO PARA DISPOSITIVOS COM PIXEL RATIO ALTO (Retina, etc) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .background {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+    
+    .profile-image {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* OTIMIZAÇÃO PARA MODO ESCURO DO SISTEMA */
+@media (prefers-color-scheme: dark) {
+    .background {
+        opacity: 0.4;
+    }
+    
+    .profile-card {
+        background: rgba(40, 40, 40, 0.2);
+    }
+}
+
+/* OTIMIZAÇÃO PARA REDUÇÃO DE MOVIMENTO */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .profile-image {
+        animation: none;
+    }
+    
+    .cta-primary {
+        animation: none;
+    }
+}
+
+/* OTIMIZAÇÃO PARA CONTRASTE ALTO */
+@media (prefers-contrast: high) {
+    .profile-card {
+        border-width: 3px;
+        background: rgba(0, 0, 0, 0.8);
+    }
+    
+    .link-button {
+        border: 2px solid var(--color-primary);
+    }
+    
+    .service-highlight {
+        border-width: 2px;
+        background: rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* OTIMIZAÇÕES ADICIONAIS PARA RESPONSIVIDADE */
+
+/* Suporte para notch/safe areas em dispositivos móveis */
+@supports (padding: max(0px)) {
+    body {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+        padding-top: max(60px, env(safe-area-inset-top));
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+    }
+}
+
+/* Otimização para telas muito pequenas (smartwatches, etc) */
+@media (max-width: 280px) {
+    body {
+        padding: 15px 8px;
+        font-size: 12px;
+    }
+    
+    .profile-card {
+        padding: 20px 12px;
+        border-radius: 15px;
+    }
+    
+    .profile-image {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 12px;
+    }
+    
+    .brand-name {
+        font-size: 1.4em;
+        margin-bottom: 5px;
+    }
+    
+    .service-highlight {
+        font-size: 0.8em;
+        padding: 8px 10px;
+        margin-bottom: 15px;
+    }
+    
+    .link-button {
+        padding: 10px 12px;
+        font-size: 0.8em;
+        border-radius: 20px;
+    }
+    
+    .links-section {
+        gap: 10px;
+    }
+}
+
+/* Otimização para telas muito altas (aspect ratio vertical extremo) */
+@media (min-aspect-ratio: 1/2) {
+    .profile-card {
+        margin: 20px auto;
+    }
+}
+
+/* Otimização para telas muito largas (aspect ratio horizontal extremo) */
+@media (min-aspect-ratio: 3/1) {
+    body {
+        padding: 40px 10%;
+    }
+    
+    .profile-card {
+        max-width: 400px;
+    }
+}
+
+/* Melhorias para interação touch */
+@media (pointer: coarse) {
+    .link-button {
+        min-height: 44px; /* Tamanho mínimo recomendado para touch targets */
+        touch-action: manipulation; /* Melhora a responsividade do toque */
+    }
+    
+    .profile-image {
+        touch-action: manipulation;
+    }
+}
+
+/* Otimização para conexões lentas */
+@media (prefers-reduced-data: reduce) {
+    .background {
+        display: none;
+    }
+    
+    .profile-image {
+        animation: none;
+    }
+    
+    .cta-primary {
+        animation: none;
+    }
+}
+
+/* Suporte para modo de alto contraste do Windows */
+@media (forced-colors: active) {
+    .profile-card {
+        border: 2px solid ButtonText;
+        background: Canvas;
+    }
+    
+    .link-button {
+        border: 1px solid ButtonText;
+        background: ButtonFace;
+        color: ButtonText;
+    }
+    
+    .brand-name,
+    .service-highlight {
+        color: CanvasText;
+    }
+}
+
+/* Otimização para impressão */
+@media print {
+    .background {
+        display: none;
+    }
+    
+    body {
+        background: white;
+        color: black;
+        padding: 20px;
+    }
+    
+    .profile-card {
+        background: white;
+        border: 2px solid black;
+        box-shadow: none;
+        page-break-inside: avoid;
+    }
+    
+    .link-button {
+        background: white;
+        border: 1px solid black;
+        color: black;
+    }
+    
+    .profile-image {
+        animation: none;
+        box-shadow: none;
+    }
+}
+
+/* Container queries para componentes mais inteligentes (suporte futuro) */
+@container (max-width: 300px) {
+    .profile-image {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .brand-name {
+        font-size: 1.6em;
+    }
+}
+
+@container (min-width: 500px) {
+    .profile-image {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .brand-name {
+        font-size: 2.4em;
+    }
 }
